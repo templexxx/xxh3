@@ -12,6 +12,15 @@ func Hash(b []byte) uint64 {
 
 }
 
+// Hash returns the hash of the uint64.
+func HashU64(v, seed uint64) uint64 {
+	input1 := uint32(v)
+	input2 := v >> 32
+	input64 := u64(input2) + u64(input1)<<32
+	keyed := input64 ^ (key64_008 ^ key64_016 - seed)
+	return rrmxmx(keyed, 8)
+}
+
 // Hash returns the hash of the string slice.
 func HashString(s string) uint64 {
 	fn := hashMed
